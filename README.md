@@ -33,6 +33,8 @@ Never guess when your next health tick is coming. Health Check Up adds a small r
 Download the [**Valheim Mod Installer**](https://github.com/Glutoblop/ValheimPlugins) and run it (`Start-Installer.bat` on Windows, `start-installer.sh` on Linux/macOS), point it at your Valheim folder, tick **Health Check Up** and click **Install / Update**. It installs BepInEx for you if needed.
 
 ### Manual
+Download from the [latest release](https://github.com/Glutoblop/HealthCheckup/releases/latest) ([`HealthCheckUp.zip`](https://github.com/Glutoblop/HealthCheckup/releases/latest/download/HealthCheckUp.zip): unzip into your Valheim folder), or:
+
 1. Install [BepInExPack_Valheim](https://thunderstore.io/c/valheim/p/denikson/BepInExPack_Valheim/) (5.4.2360 or newer) into your Valheim folder.
 2. Download [`dist/HealthCheckUp.dll`](https://github.com/Glutoblop/HealthCheckup/raw/main/dist/HealthCheckUp.dll).
 3. Copy it to `<Valheim>/BepInEx/plugins/HealthCheckUp/HealthCheckUp.dll`.
