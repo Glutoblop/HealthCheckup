@@ -3,7 +3,7 @@
   "id": "HealthCheckUp",
   "name": "Health Check Up",
   "guid": "jordan.valheim.healthcheckup",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Glutoblop",
   "description": "Adds a radial cooldown icon next to the health bar showing when the next food regen tick lands, plus a ghost preview of how much it will heal.",
   "repo": "Glutoblop/HealthCheckup",
