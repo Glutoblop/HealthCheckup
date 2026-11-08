@@ -24,7 +24,7 @@ namespace HealthCheckUp
     {
         public const string Guid = "jordan.valheim.healthcheckup";
         public const string Name = "Health Check Up";
-        public const string Version = "0.1.1";
+        public const string Version = "0.1.2";
 
         internal static ConfigEntry<bool> Enabled;
         internal static ConfigEntry<InactiveMode> WhenInactive;
