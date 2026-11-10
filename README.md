@@ -1,28 +1,20 @@
 # Health Check Up
 
-![version](https://img.shields.io/badge/version-0.1.0-blue) ![valheim](https://img.shields.io/badge/Valheim-1.0.21-orange) ![client](https://img.shields.io/badge/client--side-only-green)
+![version](https://img.shields.io/badge/version-0.1.3-blue) ![valheim](https://img.shields.io/badge/Valheim-1.0.21-orange) ![client](https://img.shields.io/badge/client--side-only-green)
 
 A BepInEx plugin for Valheim.
 
-Never guess when your next health tick is coming. Health Check Up adds a small radial cooldown icon next to the health bar that fills up as the next food regen tick approaches, and draws a translucent "ghost" segment on the health bar showing exactly how much that tick will heal.
+Health Check Up draws a translucent segment on the health bar showing how much health the next food regeneration tick will restore.
 
 ## Features
-- Radial cooldown ring beside the health bar, with an item icon in the middle (Minor Healing Mead by default, configurable).
 - Ghost preview on the health bar of the upcoming heal, with an optional `+N` label, fading in and pulsing in the last 2 seconds.
-- Hides (or dims) itself when a tick wouldn't heal you: full health, no regen food, or a debuff zeroing regen.
-- Optional seconds-remaining text.
-- Read-only: it only reads the local player's regen timer. No RPCs, no world data, no gameplay changes.
+- Hides when the next tick won't heal you, such as at full health or with no regen food.
+- Client-side only; does not change gameplay.
 
 ## Configuration (`BepInEx/config/jordan.valheim.healthcheckup.cfg`)
 | Section | Key | Default | What it does |
 |---|---|---|---|
-| General | Enabled | true | Show the icon. |
-| General | WhenInactive | Hide | Hide / Dim / Show when no tick would heal you. |
-| General | DimAlpha | 0.3 | Opacity in Dim mode. |
-| General | ShowSecondsText | false | Seconds-to-next-tick text under the icon. |
-| Layout | OffsetX / OffsetY / Size | 8 / 0 / 32 | Position and size in HUD pixels. |
-| Appearance | IconItem | MeadHealthMinor | Item prefab whose icon sits in the ring (empty = none). |
-| Appearance | RingColor / RingBackgroundColor | red / translucent black | Ring colours. |
+| General | Enabled | true | Enable Health Check Up. |
 | Preview | EnablePreview | true | Ghost heal segment on the health bar. |
 | Preview | PreviewColor / PreviewPulse | light green / true | Ghost colour and pulse. |
 | Preview | ShowAmountText / AmountTextSize | true / 14 | `+N` label. |
@@ -44,7 +36,7 @@ Download from the [latest release](https://github.com/Glutoblop/HealthCheckup/re
 
 | | |
 |---|---|
-| Plugin version | **0.1.0** |
+| Plugin version | **0.1.3** |
 | Last tested on Valheim | **1.0.21** (network version 41, Steam build 26249040) on 2026-11-03 |
 | BepInExPack_Valheim | 5.4.2360 |
 | Multiplayer | Client-side only: works on vanilla servers, other players don't need it |

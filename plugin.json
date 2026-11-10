@@ -5,7 +5,7 @@
   "guid": "jordan.valheim.healthcheckup",
   "version": "0.1.2",
   "author": "Glutoblop",
-  "description": "Adds a radial cooldown icon next to the health bar showing when the next food regen tick lands, plus a ghost preview of how much it will heal.",
+  "description": "Shows a translucent segment on the health bar previewing how much the next food regeneration tick will heal.",
   "repo": "Glutoblop/HealthCheckup",
   "branch": "main",
   "client_only": true,

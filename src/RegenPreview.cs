@@ -13,6 +13,8 @@ namespace HealthCheckUp
     // automatically sits at the current fill edge (including smoothing). Its width is m_width * heal / maxHealth.
     internal static class RegenPreview
     {
+        private const float RegenInterval = 10f; // Player.UpdateFood
+
         private static Hud _hud;
         private static RectTransform _ghost;
         private static Image _image;
@@ -21,7 +23,7 @@ namespace HealthCheckUp
 
         internal static void MarkDirty() => _dirty = true;
 
-        internal static void Hide()
+        private static void Hide()
         {
             if (_ghost != null) _ghost.gameObject.SetActive(false);
         }
@@ -36,17 +38,23 @@ namespace HealthCheckUp
             _hud = null;
         }
 
-        internal static void Tick(Hud hud, Player player, float healAmount, float progress)
+        internal static void Tick(Hud hud)
         {
-            if (!Plugin.EnablePreview.Value || healAmount <= 0f)
+            Player player = Player.m_localPlayer;
+            if (!Plugin.Enabled.Value || !Plugin.EnablePreview.Value || hud == null || player == null || player.IsDead())
             {
                 Hide();
                 return;
             }
 
             GuiBar bar = hud.m_healthBarFast;
-            if (bar == null || bar.m_bar == null)
+            float maxHealth = player.GetMaxHealth();
+            float healAmount = NextHealAmount(player, maxHealth - player.GetHealth());
+            if (bar == null || bar.m_bar == null || maxHealth <= 0f || healAmount <= 0f)
+            {
+                Hide();
                 return;
+            }
 
             if (_ghost == null || _hud != hud || _dirty)
             {
@@ -55,13 +63,7 @@ namespace HealthCheckUp
                 _dirty = false;
             }
 
-            float maxHealth = player.GetMaxHealth();
-            if (maxHealth <= 0f)
-            {
-                Hide();
-                return;
-            }
-
+            float progress = Mathf.Clamp01(player.m_foodRegenTimer / RegenInterval);
             _ghost.gameObject.SetActive(true);
             _ghost.sizeDelta = new Vector2(bar.m_width * healAmount / maxHealth, 0f);
 
@@ -81,6 +83,24 @@ namespace HealthCheckUp
                 _text.text = "+" + Mathf.CeilToInt(healAmount);
                 _text.alpha = Mathf.Lerp(0.5f, 1f, progress);
             }
+        }
+
+        // Match Player.UpdateFood's food regen and status-effect multiplier, capped at missing health.
+        private static float NextHealAmount(Player player, float missing)
+        {
+            if (missing <= 0.01f)
+                return 0f;
+
+            float regen = 0f;
+            foreach (Player.Food food in player.GetFoods())
+                regen += food.m_item.m_shared.m_foodRegen;
+            if (regen <= 0f)
+                return 0f;
+
+            float mult = 1f;
+            player.m_seman.ModifyHealthRegen(ref mult);
+            regen *= mult;
+            return regen > 0f ? Mathf.Min(regen, missing) : 0f;
         }
 
         private static void Build(Hud hud, GuiBar bar)
